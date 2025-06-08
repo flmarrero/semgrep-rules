@@ -1,0 +1,6 @@
+command:
+  continue_on_error: true
+formatter:
+  type: basic
+  force_array_style: flow
+  trim_trailing_whitespace: true

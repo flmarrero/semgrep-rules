@@ -20,7 +20,7 @@ rules:
       technology:
         - .net
     languages:
-      - csharp
+      - generic
     paths:
       include:
         - "*.cshtml"

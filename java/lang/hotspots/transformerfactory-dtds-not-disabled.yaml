@@ -49,6 +49,7 @@ rules:
 
 
 
+
                         ...
                         $V $FACTORY = TransformerFactory.newInstance();
                         static {
@@ -66,6 +67,7 @@ rules:
 
 
 
+
                         ...
                         $V $FACTORY = TransformerFactory.newInstance();
                         static {
@@ -80,6 +82,7 @@ rules:
 
                   - pattern-not-inside: >
                       class $C {
+
 
 
 
@@ -97,6 +100,7 @@ rules:
 
                   - pattern-not-inside: >
                       class $C {
+
 
 
 
@@ -152,6 +156,7 @@ rules:
 
 
 
+
                         ...
                         $T $M(...) {
                           ...
@@ -168,6 +173,7 @@ rules:
 
 
 
+
                         ...
                         $T $M(...) {
                           ...
@@ -181,6 +187,7 @@ rules:
 
                   - pattern-inside: >
                       class $C {
+
 
 
 
@@ -197,6 +204,7 @@ rules:
 
                   - pattern-inside: >
                       class $C {
+
 
 
 
