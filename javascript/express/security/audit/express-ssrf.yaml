@@ -1,12 +1,6 @@
 rules:
   - id: express-ssrf
-    message: >-
-      The following request $REQUEST.$METHOD() was found to be crafted from
-      user-input `$REQ` which can lead to Server-Side Request Forgery (SSRF)
-      vulnerabilities. It is recommended where possible to not allow user-input
-      to craft the base request, but to be treated as part of the path or query
-      parameter. When user-input is necessary to craft the request, it is
-      recommeneded to follow OWASP best practices to prevent abuse. 
+    message: "The following request $REQUEST.$METHOD() was found to be crafted from user-input `$REQ` which can lead to Server-Side Request Forgery (SSRF) vulnerabilities. It is recommended where possible to not allow user-input to craft the base request, but to be treated as part of the path or query parameter. When user-input is necessary to craft the request, it is recommeneded to follow OWASP best practices to prevent abuse. "
     metadata:
       references:
         - https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html
@@ -55,7 +49,7 @@ rules:
               - pattern: cookies
               - pattern: headers
               - pattern: body
-    # we have a deepsemgrep rule which will make this 10x smaller.          
+    # we have a deepsemgrep rule which will make this 10x smaller.
     pattern-sinks:
       - patterns:
           - pattern-either:
@@ -146,36 +140,32 @@ rules:
               - pattern-inside: |
                   $ASSIGN = $REQ. ... .$VALUE + $...A
                   ...
-              - pattern-inside: |
-                  $ASSIGN = $REQ. ... .$VALUE['...'] + $...A
-                  ...     
+              - pattern-inside: "$ASSIGN = $REQ. ... .$VALUE['...'] + $...A\n...     \n"
               - pattern-inside: |
                   $ASSIGN = `${$REQ. ... .$VALUE}...`
                   ...
-              - pattern-inside: |
-                  $ASSIGN = `${$REQ. ... .$VALUE['...']}...`
-                  ... 
+              - pattern-inside: "$ASSIGN = `${$REQ. ... .$VALUE['...']}...`\n... \n"
               # Direct usage with req.body with http|https|// from assign
               - patterns:
-                - pattern-either:
-                    - pattern-inside: |
-                            $ASSIGN = "$HTTP"+ $REQ. ... .$VALUE
-                            ...
-                    - pattern-inside: |
-                            $ASSIGN = "$HTTP"+$REQ. ... .$VALUE + $...A
-                            ...
-                    - pattern-inside: |
-                            $ASSIGN = "$HTTP"+$REQ.$VALUE[...]
-                            ...
-                    - pattern-inside: |
-                            $ASSIGN = "$HTTP"+$REQ.$VALUE[...] + $...A
-                            ...
-                    - pattern-inside: |
-                            $ASSIGN = `$HTTP${$REQ.$VALUE[...]}...`
-                            ...
-                - metavariable-regex:
-                    metavariable: $HTTP
-                    regex: ^(https?:\/\/|//)$                   
+                  - pattern-either:
+                      - pattern-inside: |
+                          $ASSIGN = "$HTTP"+ $REQ. ... .$VALUE
+                          ...
+                      - pattern-inside: |
+                          $ASSIGN = "$HTTP"+$REQ. ... .$VALUE + $...A
+                          ...
+                      - pattern-inside: |
+                          $ASSIGN = "$HTTP"+$REQ.$VALUE[...]
+                          ...
+                      - pattern-inside: |
+                          $ASSIGN = "$HTTP"+$REQ.$VALUE[...] + $...A
+                          ...
+                      - pattern-inside: |
+                          $ASSIGN = `$HTTP${$REQ.$VALUE[...]}...`
+                          ...
+                  - metavariable-regex:
+                      metavariable: $HTTP
+                      regex: ^(https?:\/\/|//)$
           - pattern-either:
               - pattern: $REQUEST.$METHOD($ASSIGN,...)
               - pattern: $REQUEST.$METHOD($ASSIGN + $...FOO,...)

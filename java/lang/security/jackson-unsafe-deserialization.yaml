@@ -37,20 +37,10 @@ rules:
                     }
                     ...
                   }
-              - pattern-inside: |
-                  $METHODTYPE $METHOD(...) {
-                    ...  
-                  }
+              - pattern-inside: "$METHODTYPE $METHOD(...) {\n  ...  \n}\n"
               - pattern: $OM.readValue($JSON, ...);
     message: >-
-      When using Jackson to marshall/unmarshall JSON to Java objects,
-      enabling default typing is dangerous and can lead to RCE. If an attacker
-      can control `$JSON` it might be possible to provide a malicious JSON which
-      can be used to exploit unsecure deserialization. In order to prevent this
-      issue, avoid to enable default typing (globally or by using "Per-class"
-      annotations) and avoid using `Object` and other dangerous types for member
-      variable declaration which creating classes for Jackson based
-      deserialization.
+      When using Jackson to marshall/unmarshall JSON to Java objects, enabling default typing is dangerous and can lead to RCE. If an attacker can control `$JSON` it might be possible to provide a malicious JSON which can be used to exploit unsecure deserialization. In order to prevent this issue, avoid to enable default typing (globally or by using "Per-class" annotations) and avoid using `Object` and other dangerous types for member variable declaration which creating classes for Jackson based deserialization.
     languages:
       - java
     severity: WARNING

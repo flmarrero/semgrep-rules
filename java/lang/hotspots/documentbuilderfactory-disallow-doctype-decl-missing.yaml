@@ -28,13 +28,7 @@ rules:
       likelihood: LOW
       impact: HIGH
       confidence: HIGH
-    message: DOCTYPE declarations are enabled for this DocumentBuilderFactory. This
-      is vulnerable to XML external entity attacks. Disable this by setting the
-      feature "http://apache.org/xml/features/disallow-doctype-decl" to true.
-      Alternatively, allow DOCTYPE declarations and only prohibit external
-      entities declarations. This can be done by setting the features
-      "http://xml.org/sax/features/external-general-entities" and
-      "http://xml.org/sax/features/external-parameter-entities" to false.
+    message: DOCTYPE declarations are enabled for this DocumentBuilderFactory. This is vulnerable to XML external entity attacks. Disable this by setting the feature "http://apache.org/xml/features/disallow-doctype-decl" to true. Alternatively, allow DOCTYPE declarations and only prohibit external entities declarations. This can be done by setting the features "http://xml.org/sax/features/external-general-entities" and "http://xml.org/sax/features/external-parameter-entities" to false.
     mode: taint
     pattern-sources:
       - by-side-effect: true
@@ -52,6 +46,9 @@ rules:
                       }
                   - pattern-not-inside: >
                       class $C {
+
+
+
                         ...
                         $V $FACTORY = DocumentBuilderFactory.newInstance();
                         static {
@@ -61,8 +58,12 @@ rules:
                         }
                         ...
                       }
+
                   - pattern-not-inside: >
                       class $C {
+
+
+
                         ...
                         $V $FACTORY = DocumentBuilderFactory.newInstance();
                         static {
@@ -74,8 +75,12 @@ rules:
                         }
                         ...
                       }
+
                   - pattern-not-inside: >
                       class $C {
+
+
+
                         ...
                         $V $FACTORY = DocumentBuilderFactory.newInstance();
                         static {
@@ -87,6 +92,7 @@ rules:
                         }
                         ...
                       }
+
     pattern-sinks:
       - patterns:
           - pattern: $FACTORY.newDocumentBuilder();
@@ -94,68 +100,80 @@ rules:
       - by-side-effect: true
         pattern-either:
           - patterns:
-            - pattern-either:
-              - pattern: >
-                  $FACTORY.setFeature("http://apache.org/xml/features/disallow-doctype-decl",
-                  true);
-              - pattern: >
-                  $FACTORY.setFeature("http://xml.org/sax/features/external-general-entities",
-                  false);
+              - pattern-either:
+                  - pattern: >
+                      $FACTORY.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
 
-                  ...
+                  - pattern: >
+                      $FACTORY.setFeature("http://xml.org/sax/features/external-general-entities", false);
 
-                  $FACTORY.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-              - pattern: >
-                  $FACTORY.setFeature("http://xml.org/sax/features/external-parameter-entities",
-                  false);
+                      ...
 
-                  ...
+                      $FACTORY.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
 
-                  $FACTORY.setFeature("http://xml.org/sax/features/external-general-entities", false);
-            - focus-metavariable: $FACTORY
+                  - pattern: >
+                      $FACTORY.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+
+                      ...
+
+                      $FACTORY.setFeature("http://xml.org/sax/features/external-general-entities", false);
+
+              - focus-metavariable: $FACTORY
           - patterns:
               - pattern-either:
-                - pattern-inside: >
-                    class $C {
-                      ...
-                      $T $M(...) {
+                  - pattern-inside: >
+                      class $C {
+
+
+
                         ...
-                        $FACTORY.setFeature("http://apache.org/xml/features/disallow-doctype-decl",
-                        true);
-                        ...
-                      }
-                      ...
-                    }
-                - pattern-inside: >
-                    class $C {
-                      ...
-                      $T $M(...) {
-                        ...
-                        $FACTORY.setFeature("http://xml.org/sax/features/external-general-entities", false);
-                        ...
-                        $FACTORY.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+                        $T $M(...) {
+                          ...
+                          $FACTORY.setFeature("http://apache.org/xml/features/disallow-doctype-decl",
+                          true);
+                          ...
+                        }
                         ...
                       }
-                      ...
-                    }
-                - pattern-inside: >
-                    class $C {
-                      ...
-                      $T $M(...) {
+
+                  - pattern-inside: >
+                      class $C {
+
+
+
                         ...
-                        $FACTORY.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-                        ...
-                        $FACTORY.setFeature("http://xml.org/sax/features/external-general-entities",false);
+                        $T $M(...) {
+                          ...
+                          $FACTORY.setFeature("http://xml.org/sax/features/external-general-entities", false);
+                          ...
+                          $FACTORY.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+                          ...
+                        }
                         ...
                       }
-                      ...
-                    }
+
+                  - pattern-inside: >
+                      class $C {
+
+
+
+                        ...
+                        $T $M(...) {
+                          ...
+                          $FACTORY.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+                          ...
+                          $FACTORY.setFeature("http://xml.org/sax/features/external-general-entities",false);
+                          ...
+                        }
+                        ...
+                      }
+
               - pattern: $M($X)
               - focus-metavariable: $X
     fix: >
-      $FACTORY.setFeature("http://apache.org/xml/features/disallow-doctype-decl",
-      true);
+      $FACTORY.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
 
       $FACTORY.newDocumentBuilder();
+
     languages:
       - java

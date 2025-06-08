@@ -1,29 +1,27 @@
 rules:
   - id: express-cookie-session-default-name
     message: >-
-      Don’t use the default session cookie name
-      Using the default session cookie name can open your app to attacks.
-      The security issue posed is similar to X-Powered-By: a potential attacker can use it to fingerprint the server and target attacks accordingly.
+      Don’t use the default session cookie name Using the default session cookie name can open your app to attacks. The security issue posed is similar to X-Powered-By: a potential attacker can use it to fingerprint the server and target attacks accordingly.
     severity: WARNING
     languages: [javascript, typescript]
     metadata:
       cwe:
-      - 'CWE-522: Insufficiently Protected Credentials'
+        - 'CWE-522: Insufficiently Protected Credentials'
       owasp:
-      - A02:2017 - Broken Authentication
-      - A04:2021 - Insecure Design
+        - A02:2017 - Broken Authentication
+        - A04:2021 - Insecure Design
       source-rule-url: https://expressjs.com/en/advanced/best-practice-security.html
       category: security
       technology:
-      - express
+        - express
       cwe2021-top25: true
       subcategory:
-      - vuln
+        - vuln
       likelihood: HIGH
       impact: LOW
       confidence: MEDIUM
       references:
-      - https://owasp.org/Top10/A04_2021-Insecure_Design
+        - https://owasp.org/Top10/A04_2021-Insecure_Design
     patterns:
       - pattern-either:
           - pattern-inside: |
@@ -46,28 +44,27 @@ rules:
           $SESSION($OPTS,...);
   - id: express-cookie-session-no-secure
     message: >-
-      Default session middleware settings: `secure` not set.
-      It ensures the browser only sends the cookie over HTTPS.
+      Default session middleware settings: `secure` not set. It ensures the browser only sends the cookie over HTTPS.
     severity: WARNING
     languages: [javascript, typescript]
     metadata:
       cwe:
-      - 'CWE-522: Insufficiently Protected Credentials'
+        - 'CWE-522: Insufficiently Protected Credentials'
       owasp:
-      - A02:2017 - Broken Authentication
-      - A04:2021 - Insecure Design
+        - A02:2017 - Broken Authentication
+        - A04:2021 - Insecure Design
       source-rule-url: https://expressjs.com/en/advanced/best-practice-security.html
       category: security
       technology:
-      - express
+        - express
       cwe2021-top25: true
       subcategory:
-      - vuln
+        - vuln
       likelihood: HIGH
       impact: LOW
       confidence: MEDIUM
       references:
-      - https://owasp.org/Top10/A04_2021-Insecure_Design
+        - https://owasp.org/Top10/A04_2021-Insecure_Design
     patterns:
       - pattern-either:
           - pattern-inside: |
@@ -108,28 +105,27 @@ rules:
           $SESSION($OPTS,...);
   - id: express-cookie-session-no-httponly
     message: >-
-      Default session middleware settings: `httpOnly` not set.
-      It ensures the cookie is sent only over HTTP(S), not client JavaScript, helping to protect against cross-site scripting attacks.
+      Default session middleware settings: `httpOnly` not set. It ensures the cookie is sent only over HTTP(S), not client JavaScript, helping to protect against cross-site scripting attacks.
     severity: WARNING
     languages: [javascript, typescript]
     metadata:
       cwe:
-      - 'CWE-522: Insufficiently Protected Credentials'
+        - 'CWE-522: Insufficiently Protected Credentials'
       owasp:
-      - A02:2017 - Broken Authentication
-      - A04:2021 - Insecure Design
+        - A02:2017 - Broken Authentication
+        - A04:2021 - Insecure Design
       source-rule-url: https://expressjs.com/en/advanced/best-practice-security.html
       category: security
       technology:
-      - express
+        - express
       cwe2021-top25: true
       subcategory:
-      - vuln
+        - vuln
       likelihood: HIGH
       impact: LOW
       confidence: MEDIUM
       references:
-      - https://owasp.org/Top10/A04_2021-Insecure_Design
+        - https://owasp.org/Top10/A04_2021-Insecure_Design
     patterns:
       - pattern-either:
           - pattern-inside: |
@@ -170,29 +166,27 @@ rules:
           $SESSION($OPTS,...);
   - id: express-cookie-session-no-domain
     message: >-
-      Default session middleware settings: `domain` not set.
-      It indicates the domain of the cookie; use it to compare against the domain of the server in which the URL is being requested.
-      If they match, then check the path attribute next.
+      Default session middleware settings: `domain` not set. It indicates the domain of the cookie; use it to compare against the domain of the server in which the URL is being requested. If they match, then check the path attribute next.
     severity: WARNING
     languages: [javascript, typescript]
     metadata:
       cwe:
-      - 'CWE-522: Insufficiently Protected Credentials'
+        - 'CWE-522: Insufficiently Protected Credentials'
       owasp:
-      - A02:2017 - Broken Authentication
-      - A04:2021 - Insecure Design
+        - A02:2017 - Broken Authentication
+        - A04:2021 - Insecure Design
       source-rule-url: https://expressjs.com/en/advanced/best-practice-security.html
       category: security
       technology:
-      - express
+        - express
       cwe2021-top25: true
       subcategory:
-      - vuln
+        - vuln
       likelihood: HIGH
       impact: LOW
       confidence: MEDIUM
       references:
-      - https://owasp.org/Top10/A04_2021-Insecure_Design
+        - https://owasp.org/Top10/A04_2021-Insecure_Design
     patterns:
       - pattern-either:
           - pattern-inside: |
@@ -233,28 +227,27 @@ rules:
           $SESSION($OPTS,...);
   - id: express-cookie-session-no-path
     message: >-
-      Default session middleware settings: `path` not set.
-      It indicates the path of the cookie; use it to compare against the request path. If this and domain match, then send the cookie in the request.
+      Default session middleware settings: `path` not set. It indicates the path of the cookie; use it to compare against the request path. If this and domain match, then send the cookie in the request.
     severity: WARNING
     languages: [javascript, typescript]
     metadata:
       cwe:
-      - 'CWE-522: Insufficiently Protected Credentials'
+        - 'CWE-522: Insufficiently Protected Credentials'
       owasp:
-      - A02:2017 - Broken Authentication
-      - A04:2021 - Insecure Design
+        - A02:2017 - Broken Authentication
+        - A04:2021 - Insecure Design
       source-rule-url: https://expressjs.com/en/advanced/best-practice-security.html
       category: security
       technology:
-      - express
+        - express
       cwe2021-top25: true
       subcategory:
-      - vuln
+        - vuln
       likelihood: HIGH
       impact: LOW
       confidence: MEDIUM
       references:
-      - https://owasp.org/Top10/A04_2021-Insecure_Design
+        - https://owasp.org/Top10/A04_2021-Insecure_Design
     patterns:
       - pattern-either:
           - pattern-inside: |
@@ -295,28 +288,27 @@ rules:
           $SESSION($OPTS,...);
   - id: express-cookie-session-no-expires
     message: >-
-      Default session middleware settings: `expires` not set.
-      Use it to set expiration date for persistent cookies.
+      Default session middleware settings: `expires` not set. Use it to set expiration date for persistent cookies.
     severity: WARNING
     languages: [javascript, typescript]
     metadata:
       cwe:
-      - 'CWE-522: Insufficiently Protected Credentials'
+        - 'CWE-522: Insufficiently Protected Credentials'
       owasp:
-      - A02:2017 - Broken Authentication
-      - A04:2021 - Insecure Design
+        - A02:2017 - Broken Authentication
+        - A04:2021 - Insecure Design
       source-rule-url: https://expressjs.com/en/advanced/best-practice-security.html
       category: security
       technology:
-      - express
+        - express
       cwe2021-top25: true
       subcategory:
-      - vuln
+        - vuln
       likelihood: HIGH
       impact: LOW
       confidence: MEDIUM
       references:
-      - https://owasp.org/Top10/A04_2021-Insecure_Design
+        - https://owasp.org/Top10/A04_2021-Insecure_Design
     patterns:
       - pattern-either:
           - pattern-inside: |

@@ -6,12 +6,10 @@ rules:
           $COOKIE = new Cookie(...);
           ...
           $COOKIE.setSecure(...);
-    message: "Default session middleware settings: `setSecure` not set to true. This
-      ensures that the cookie is sent only over HTTPS to prevent cross-site
-      scripting attacks."
+    message: "Default session middleware settings: `setSecure` not set to true. This ensures that the cookie is sent only over HTTPS to prevent cross-site scripting attacks."
     fix: |
-        $COOKIE = new Cookie($...ARGS);
-        $COOKIE.setSecure(true);
+      $COOKIE = new Cookie($...ARGS);
+      $COOKIE.setSecure(true);
     metadata:
       vulnerability: Insecure Transport
       owasp:
@@ -23,9 +21,9 @@ rules:
         - https://docs.oracle.com/javaee/6/api/javax/servlet/http/Cookie.html#setSecure(boolean)
         - https://owasp.org/www-community/controls/SecureCookieAttribute
       category: security
-      technology: 
-       - java
-       - cookie
+      technology:
+        - java
+        - cookie
       subcategory:
         - audit
       likelihood: LOW
